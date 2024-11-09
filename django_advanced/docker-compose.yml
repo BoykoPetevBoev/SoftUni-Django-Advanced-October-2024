@@ -1,0 +1,27 @@
+services:
+
+  db:
+    image: postgres:13
+    container_name: django_advanced_db
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    environment:
+      POSTGRES_DB: regular_exam_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+
+  web:
+    container_name: django_advanced_web
+    build:
+      context: ../
+      dockerfile: django_advanced/Dockerfile
+    command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - ./django_advanced:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="section">
+    <h1>Welcomes</h1>
+
+    <div>
+      <a href="{% url 'profile-edit' user.pk %}">Edit Profile</a>
+    </div>
+  </div>
+{% endblock %}

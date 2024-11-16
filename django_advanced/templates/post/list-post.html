@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <section class="section">
+    
+    {% if page_obj %}
+    <h2>Published Posts</h2>
+    {% else %}
+    <h2>No published posts yet.</h2>
+    {% endif %}
+    
+    <div>
+      {% include 'post/search.html' %}
+    </div>
+
+    <section class="dashboard">
+      {% for post in page_obj  %}
+      <div class="content">
+        <div class="post card flex">
+          <div class="flex">
+            <img src="{{ post.image_url }}" alt="{{ post.title }}" />
+          </div>
+          <div>
+            <h3 class="title">{{ post.title }}</h3>
+            <p>Author: {{ post.author }}</p>
+            <i>{{ post.updated_at}}</i>
+            <a class="details-btn" href="{% url 'details-post' post.pk %}">See More</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </section>
+    {% include 'common/pagination.html' %}
+  </section>
+{% endblock %}

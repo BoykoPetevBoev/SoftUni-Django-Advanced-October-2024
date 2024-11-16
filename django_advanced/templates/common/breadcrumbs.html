@@ -1,0 +1,11 @@
+<nav class="breadcrumbs">
+  {% if breadcrumbs %}
+    <ol class="breadcrumb">
+      {% for breadcrumb in breadcrumbs %}
+        <li class="breadcrumb-item">
+          <a href="{{ breadcrumb.url }}">{{ breadcrumb.title }}</a> 
+        </li>
+      {% endfor %}
+    </ol>
+  {% endif %}
+</nav>

@@ -22,6 +22,15 @@ services:
       - "8000:8000"
     depends_on:
       - db
+    develop:
+      watch:
+        - action: sync
+          path: ./django_advanced
+          target: /src/django_advanced
+          ignore:
+            - .venv
+        - action: rebuild
+          path: requirements.txt
 
 volumes:
   postgres_data:

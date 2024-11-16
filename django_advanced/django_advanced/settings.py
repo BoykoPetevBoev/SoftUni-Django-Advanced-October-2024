@@ -34,6 +34,7 @@ CREATED_APPS = [
     'django_advanced.main_app',
     'django_advanced.user_app',
     'django_advanced.post_app',
+    'django_advanced.chart_app',
 ]
 
 INSTALLED_APPS = [

@@ -1,5 +1,6 @@
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DetailView, DeleteView, ListView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django_advanced.post_app.models import Post
 from django_advanced.post_app.forms import CreatePostForm, EditPostForm, DeletePostForm, SearchForm
 from django_advanced.user_app.models import CustomUser
@@ -30,7 +31,7 @@ class ListPostPage(AuthorMixin, ListView):
         return queryset
 
 
-class CreatePostPage(AuthorMixin, CreateView):
+class CreatePostPage(LoginRequiredMixin, AuthorMixin, CreateView):
     model = Post
     form_class = CreatePostForm
     template_name = 'post/create-post.html'
@@ -41,14 +42,14 @@ class CreatePostPage(AuthorMixin, CreateView):
         return super().form_valid(form)
 
 
-class EditPostPage(AuthorMixin, UpdateView):
+class EditPostPage(LoginRequiredMixin, AuthorMixin, UpdateView):
     model = Post
     form_class = EditPostForm
     template_name = 'post/edit-post.html'
     success_url = reverse_lazy('posts')
 
 
-class DeletePostPage(AuthorMixin, DeleteView):
+class DeletePostPage(LoginRequiredMixin, AuthorMixin, DeleteView):
     model = Post
     form_class = DeletePostForm
     template_name = 'post/delete-post.html'

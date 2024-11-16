@@ -19,10 +19,11 @@
   </head>
 
   <body>
-    {% include 'common/nav.html' %}
     {% include 'common/header.html' %}
+    {% include 'common/breadcrumbs.html' %}
     <div class="page">
-      <div class="container">
+      {% include 'common/nav.html' %}
+      <div class="page-content">
         {% if messages %}
           {% for message in messages %}
             <div class="alert alert-{{ message.tags }}">{{ message }}</div>

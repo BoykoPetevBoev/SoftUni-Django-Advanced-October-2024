@@ -40,17 +40,3 @@ class DeletePostForm(PostForm):
             field.widget.attrs['disabled'] = True
             field.widget.attrs['readonly'] = True
             field.widget.attrs['readonly'] = "readonly"
-
-
-class SearchForm(forms.Form):
-    class Meta():
-        fields = "__all__"
-    
-    post_title = forms.CharField(
-        required=False,
-        widget=forms.TextInput(
-            attrs={
-                'placeholder': 'Search by post tile...',
-            }
-        )
-    )

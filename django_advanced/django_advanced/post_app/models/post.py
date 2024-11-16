@@ -1,6 +1,9 @@
 from django.db import models
 from django.core.validators import MinLengthValidator
-from django_advanced.user_app.models import CustomUser
+from django.contrib.auth import get_user_model
+
+
+UserModel = get_user_model()
 
 
 class Post(models.Model):
@@ -26,7 +29,7 @@ class Post(models.Model):
     )
     
     author = models.ForeignKey(
-        CustomUser,
+        UserModel,
         on_delete=models.CASCADE,
         related_name='posts'
     )

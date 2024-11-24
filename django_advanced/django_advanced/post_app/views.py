@@ -15,13 +15,14 @@ BREADCRUMBS = [
 ]
 
 
-class DetailsPostPage(AuthorMixin, DetailView):
+class DetailsPostPage(DetailView):
     model = Post
     template_name = 'post/details-post.html'
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         post = self.get_object()
+        context['author'] = post.author
         context['likes'] = self.object.like_set.all()
         context['comments'] = self.object.comment_set.all()
         context['comment_form'] = CommentForm()
@@ -60,7 +61,7 @@ class CreatePostPage(LoginRequiredMixin, CreateView):
     
     def form_valid(self, form):
         post = form.save(commit=False)
-        post.author = self.request.user
+        post.author = self.request.user.profile
         return super().form_valid(form)
     
     def get_context_data(self, **kwargs):
@@ -115,13 +116,13 @@ def likes_functionality(request, pk: int):
     if request.POST:
         like = Like.objects.get(
             post_id=pk,
-            user=request.user
+            user=request.user.profile
         )
 
         if like:
             like.delete()
         else:
-            like = Like(post_id=pk, user=request.user)
+            like = Like(post_id=pk, user=request.user.profile)
             like.save()
 
         return redirect(request.META.get('HTTP_REFERER') + f'#{pk}')
@@ -136,7 +137,7 @@ def comment_functionality(request, pk: int):
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
             comment.post = post
-            comment.user = request.user
+            comment.user = request.user.profile
             comment.save()
 
         return redirect(request.META.get('HTTP_REFERER') + f'#{pk}')

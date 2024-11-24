@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div>
+    <h1>Forex Data</h1>
+    {% comment %} <h2>{{ title }}</h2> {% endcomment %}
+    <table>
+      <tr>
+        <th>Pair</th>
+        <th>Date</th>
+        <th>Open</th>
+        <th>High</th>
+        <th>Low</th>
+        <th>Close</th>
+        <th>Volume</th>
+      </tr>
+      {% for item in data %}
+        <tr>
+          <td>{{ item.pair }}</td>
+          <td>{{ item.date }}</td>
+          <td>{{ item.open }}</td>
+          <td>{{ item.high }}</td>
+          <td>{{ item.low }}</td>
+          <td>{{ item.close }}</td>
+          <td>{{ item.volume }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  </div>
+{% endblock %}

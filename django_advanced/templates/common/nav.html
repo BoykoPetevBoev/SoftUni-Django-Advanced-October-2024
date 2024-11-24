@@ -1,38 +1,47 @@
 <div class="menu">
   <ul class="menu-list">
-    <h3>Menu</h3>
+
+    
     <li class="menu-item">
       <a href="{% url 'home' %}" class="menu-link">Home</a>
     </li>
     <li class="menu-item">
-      <a href="{% url 'posts' %}" class="menu-link">Posts</a>
+      <a href="{% url 'posts' %}" class="menu-link">News</a>
     </li>
     <li class="menu-item">
       <a href="{% url 'create-post' %}" class="menu-link">Create Post</a>
     </li>
-    <!--    <li class="menu-item">
-            <a href="#" class="menu-link">
-                <i class="ai-book-open"></i>
-                <span>Books</span>
-            </a>
-        </li>
-        <li class="menu-item">
-            <a href="#" class="menu-link">
-                <i class="ai-bell"></i>
-                <span>Notifications</span>
-            </a>
-        </li>
-        <li class="menu-item">    
-            <a href="#" class="menu-link">
-                <i class="ai-gear"></i>
-                <span>Settings</span>
-            </a>
-        </li>
-        <li class="menu-item">
-        <a href="#" class="menu-link">
-            <i class="ai-person"></i>
-            <span>Profile</span>
-        </a>
-    </li>    -->
+    
+    <li class="menu-item">
+      <strong>User</strong>
+    </li>
+
+    <li class="menu-item">
+      <a href="{% url 'home' %}" class="menu-link">Profile</a>
+    </li>
+    <li class="menu-item">
+      <a href="{% url 'home' %}" class="menu-link">Portfolio</a>
+    </li>
+    <li class="menu-item">
+      <a href="{% url 'home' %}" class="menu-link">Add Portfolio</a>
+    </li>
+    
+    <li class="menu-item">
+      <strong>Markets</strong>
+    </li>
+    
+    <li class="menu-item">
+      <a href="{% url 'forex_list' %}" class="menu-link">Forex</a>
+    </li>
+    <li class="menu-item">
+      <a href="{% url 'forex_list' %}" class="menu-link">Stocks</a>
+    </li>
+    <li class="menu-item">
+      <a href="{% url 'commodities' %}" class="menu-link">Commodities</a>
+    </li>
+    <li class="menu-item">
+      <a href="{% url 'forex_list' %}" class="menu-link">Cryptocurrency</a>
+    </li>
+
   </ul>
 </div>

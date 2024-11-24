@@ -1,15 +1,24 @@
 body {
-  background-color: #121212;
-  color: #eeeeee;
-  font-family: "Open Sans", sans-serif;
-  font-size: 0.8125rem;
   height: 100vh;
-  font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  color: #333333;
 }
 
-p {
-  font-size: 0.8125rem;
+body::before {
+  content: ' ';
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: #f8f8f8;
+  background: url('../images/grid.png') repeat-x;
+  will-change: transform;
+  z-index: -1;
 }
+
 
 h1 {
   margin: 0 0 20px;
@@ -37,19 +46,20 @@ h4 {
 
 a {
   text-decoration: none;
-  color: #f5dd5d;
+  color: #A30000;
   padding: 3px;
 }
 
-button {
-  margin: 5px;
-  background: #417690;
-  padding: 10px 15px;
+button, .button {
+  font-size: 0.8125rem;
+  padding: 4px 8px;
+  margin: 10px 20px;
   border: none;
-  border-radius: 4px;
-  color: var(--button-fg);
+  vertical-align: middle;
+  background: #a30000;
+  color: #ffffff;
   cursor: pointer;
-  transition: background 0.15s;
+  border-radius: 4px;
 }
 
 form {}
@@ -58,7 +68,7 @@ form div {
   overflow: hidden;
   padding: 10px;
   display: flex;
-  border-bottom: 1px solid #353535;
+  border-bottom: 1px solid #c2c2c2;
 }
 
 form .helptext {
@@ -68,12 +78,11 @@ form .helptext {
 
 input,
 textarea {
-  border: 1px solid #353535;
+  border: 1px solid #c2c2c2;
   border-radius: 4px;
   padding: 5px 6px;
   margin-top: 0;
   color: var(--body-fg);
-  background: #121212;
   min-width: 500px;
 }
 
@@ -91,55 +100,14 @@ img {
   max-height: 300px;
 }
 
-header,
-footer {
-  width: 100%;
-  height: 50px;
-  background-color: #417690;
-  background: #417690;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 10px 40px;
-  margin: 0;
-}
 
-header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
 
-.breadcrumbs {
-  height: 37px;
-  position: sticky;
-  top: 50px;
-  z-index: 10;
-  background: #264b5d;
-  padding: 10px 40px;
-  border: none;
-  color: #c4dce8;
-  text-align: left;
-}
 
-.breadcrumb {
-  margin: 0;
-}
-
-.breadcrumb-item+.breadcrumb-item::before {
-  color: #f5dd5d;
-  ;
-}
 
 .errorlist {
   color: #ba2121;
 }
 
-.header-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 
 .flex {
   display: flex;
@@ -182,10 +150,7 @@ header {
 }
 
 .card {
-  background-color: #121212;
-  color: #eeeeee;
-  border: 1px solid #272727;
-  padding: 10px 20px;
+  padding: 10px;
   justify-content: flex-start;
   margin: 0;
 }
@@ -197,4 +162,14 @@ header {
 .card img {
   width: 150px;
   height: 150px;
+}
+
+.chart {
+  max-width: 500px;
+  max-height: 301px;
+}
+
+.profile-image {
+  width: 35px;
+  height: 35px;
 }

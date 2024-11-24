@@ -1,7 +1,8 @@
 .toolbar {
-    padding: 8px 10px;
+    padding: 10px;
     margin: 15px 0;
-    background: #272727;
+    background: #f5f5f5;
+    border: 1px solid #e3e3e3;
 }
 
 .toolbar form div {
@@ -19,18 +20,6 @@
 .toolbar .search-form label,
 .toolbar .comment-form label {
     display: none;
-}
-
-.toolbar .search-form button,
-.toolbar .comment-form button {
-    border: 1px solid #353535;
-    font-size: 0.8125rem;
-    padding: 4px 8px;
-    margin: 0;
-    vertical-align: middle;
-    background: #121212;
-    box-shadow: 0 -15px 20px -10px rgba(0, 0, 0, 0.15) inset;
-    cursor: pointer;
 }
 
 .toolbar .search-form input,

@@ -1,13 +1,38 @@
 {% extends 'base.html' %}
 
 {% block content %}
+  <!-- Include jQuery library -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <div class="section">
     <h1>Home Page</h1>
 
     <h1>Matplotlib Chart Example</h1>
 
     <!-- Embed the chart as an image -->
-    <img src="{% url 'gold' %}" alt="Matplotlib Chart">
+    {% comment %} <img src="{% url 'gold' %}" alt="Matplotlib Chart" /> {% endcomment %}
 
+    <h1>Gold Price Data</h1>
+
+    <!-- Divs to display data -->
+    <div id="gold_image"></div>
+    <div id="gold_data_table"></div>
+
+    <script>
+      // Fetch the data from the API using AJAX
+      $.ajax({
+        url: '/commodities/',
+        method: 'GET',
+        success: function (response) {
+          // Insert the HTML table into the #gold_data_table div
+          $('#gold_data_table').html(response.gold_data_html)
+      
+          // Insert the base64-encoded image into the #gold_image div
+          $('#gold_image').html('<img class="chart" src="data:image/png;base64,' + response.gold_image_base64 + '" />')
+        },
+        error: function (error) {
+          console.error('There was an error fetching the data:', error)
+        }
+      })
+    </script>
   </div>
 {% endblock %}

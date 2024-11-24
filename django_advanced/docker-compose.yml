@@ -15,7 +15,7 @@ services:
     build:
       context: ../
       dockerfile: django_advanced/Dockerfile
-    command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    command: sh -c "python manage.py makemigrations && python manage.py migrate && watchmedo auto-restart --directory=./ --pattern=*.py --recursive -- python manage.py runserver 0.0.0.0:8000"
     volumes:
       - ./django_advanced:/app
     ports:
@@ -26,7 +26,7 @@ services:
       watch:
         - action: sync
           path: ./django_advanced
-          target: /src/django_advanced
+          target: /app
           ignore:
             - .venv
         - action: rebuild

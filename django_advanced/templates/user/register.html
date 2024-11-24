@@ -6,10 +6,10 @@
     <form method="post">
       {% csrf_token %}
       {{ form }}
-      <button type="submit">Sign Up</button>
+      <div class="toolbar">
+        <button type="submit">Sign Up</button>
+        <small>Already have an account? <a href="{% url 'login' %}">Sign In</a></small>
+      </div>
     </form>
-    <div>
-      <small>Already have an account? <a href="{% url 'login' %}">Sign In</a></small>
-    </div>
   </div>
 {% endblock %}

@@ -12,4 +12,4 @@ COPY ./django_advanced /django_advanced/app
 
 EXPOSE 8000
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["watchmedo", "auto-restart", "--directory=.", "--pattern=*.py", "--recursive", "--", "python", "manage.py", "runserver", "0.0.0.0:8000"]

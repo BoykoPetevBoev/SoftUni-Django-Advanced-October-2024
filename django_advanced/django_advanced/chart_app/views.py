@@ -8,6 +8,8 @@ from django.http import HttpResponse
 def gold_price_chart(request):
     # Retrieve historical gold price data (GC=F is the ticker for Gold futures)
     gold_data = yf.download('GC=F', start='2023-01-01', end='2024-01-01', progress=False)
+    
+    print(gold_data)
 
     # Create a plot
     plt.figure(figsize=(10, 6))

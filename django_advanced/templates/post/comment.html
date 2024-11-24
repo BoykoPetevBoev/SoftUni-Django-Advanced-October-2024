@@ -12,23 +12,21 @@
 
 <div>
   {% for comment in comments %}
-    <div class="comments">
-      <div class="top">
-        <div class="userDetails">
-          <div class="comment-data">
-            <div class="profilepic">
-              <div class="profile_img">
-                <div class="image">
-                  <img src="{% static 'images/person.png' %}" alt="img8" />
-                </div>
-              </div>
-            </div>
-            <strong>{{ comment.user.profile.get_full_name }}</strong>
-            <p>{{ comment.text }}</p>
-          </div>
-          <span>{{ comment.date_time_of_publication }}</span>
+    <div class="comment">
+      <div class="profile">
+        <div class="image">
+          {% if comment.user.profile_picture %}
+            <img src="{{ comment.user.profile_picture }}" alt="Profile Picture" class="profile-image"/>
+          {% else %}
+            <img src="{% static 'images/picture-profile.jpg' %}" alt="Profile Picture" class="profile-image" />
+          {% endif %}
+        </div>
+        <div>
+          <strong>{{ comment.user.get_full_name }}</strong>
+          <i>{{ comment.date_time_of_publication }}</i>
         </div>
       </div>
+      <p>{{ comment.text }}</p>
     </div>
   {% endfor %}
 </div>

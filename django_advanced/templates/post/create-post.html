@@ -7,7 +7,9 @@
     <form class="form" method="post">
       {% csrf_token %}
       {{ form }}
-      <button type="submit">Publish</button>
+      <div class="toolbar">
+        <button type="submit">Publish</button>
+      </div>
     </form>
   </section>
 {% endblock %}

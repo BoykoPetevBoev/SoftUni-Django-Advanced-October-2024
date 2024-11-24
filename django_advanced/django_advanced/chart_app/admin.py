@@ -1,3 +1,6 @@
 from django.contrib import admin
+from django_advanced.chart_app.models import ChartData
 
-# Register your models here.
+@admin.register(ChartData)
+class ChartDataAdmin(admin.ModelAdmin):
+    pass

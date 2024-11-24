@@ -1,9 +1,6 @@
-from django.contrib.auth import get_user_model
 from django.db import models
 from django_advanced.post_app.models import Post
-
-
-UserModel = get_user_model()
+from django_advanced.user_app.models import Profile
 
 
 class Comment(models.Model):
@@ -27,6 +24,7 @@ class Comment(models.Model):
     )
 
     user = models.ForeignKey(
-        to=UserModel,
+        to=Profile,
         on_delete=models.CASCADE,
+        related_name='comments'
     )

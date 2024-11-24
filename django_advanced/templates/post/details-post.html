@@ -1,12 +1,18 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
   <section id="details" class="section">
     <h1>Post Details</h1>
     <div id="details-wrapper">
-      <img id="details-img" src={{ post.image_url}} alt={{ post.title }} />
+      <img id="details-img" src="{{ post.image_url }}" alt="{{ post.title }}" />
       <h3>{{ post.title }}</h3>
-      <p>Author: {{ post.author }}</p>
+      {% if author.profile_picture %}
+        <img src="{{ author.profile_picture }}" alt="Profile Picture" class="profile-image" />
+      {% else %}
+        <img src="{% static 'images/picture-profile.jpg' %}" alt="Profile Picture" class="profile-image" />
+      {% endif %}
+      <p>Author: {{ author.get_full_name }}</p>
       <p>{{ post.updated_at }}</p>
       <div id="info-wrapper">
         <div id="details-description">
@@ -14,8 +20,10 @@
         </div>
 
         <div id="action-buttons">
-          <a href="{% url 'edit-post' post.pk %}" id="edit-btn">Edit</a>
-          <a href="{% url 'delete-post' post.pk %}" id="delete-btn">Delete</a>
+          {% if user.profile == author %}
+            <a href="{% url 'edit-post' post.pk %}" id="edit-btn">Edit</a>
+            <a href="{% url 'delete-post' post.pk %}" id="delete-btn">Delete</a>
+          {% endif %}
         </div>
 
         <div>

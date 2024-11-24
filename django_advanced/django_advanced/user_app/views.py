@@ -7,6 +7,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 
 from django_advanced.user_app.forms import CustomUserCreateForm, ProfileEditForm
 from django_advanced.user_app.models.profile import Profile
+from django_advanced.user_app.mixins import ProfileOwnerMixin
 
 
 UserModel = get_user_model()
@@ -30,12 +31,17 @@ class UserLogoutView(LoginRequiredMixin, LogoutView):
     success_url = reverse_lazy('home')
 
 
-class UserProfileView(LoginRequiredMixin, DetailView):
+class UserProfileView(LoginRequiredMixin, ProfileOwnerMixin, DetailView):
     model = UserModel
     template_name = 'user/profile.html'
     
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['profile'] = self.object.profile
+        return context
 
-class ProfileEditView(UpdateView):
+
+class ProfileEditView(LoginRequiredMixin, ProfileOwnerMixin, UpdateView):
     model = Profile
     form_class = ProfileEditForm
     template_name = 'user/profile-edit.html'
@@ -46,7 +52,7 @@ class ProfileEditView(UpdateView):
 
     def get_success_url(self):
         return reverse_lazy(
-            'profile-details',
+            'profile',
             kwargs={
                 'pk': self.object.pk,
             }

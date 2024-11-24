@@ -1,0 +1,27 @@
+<div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <div class="card">
+        <h1>Gold Price Data</h1>
+  
+      <!-- Embed the chart as an image -->
+      {% comment %} <img src="{% url 'gold' %}" alt="Matplotlib Chart" /> {% endcomment %}
+  
+  
+      <div id="gold_image"></div>
+      <div id="gold_data_table"></div>
+  
+      <script>
+        $.ajax({
+          url: '/commodities/',
+          method: 'GET',
+          success: function (response) {
+            $('#gold_data_table').html(response.gold_data_html)
+            $('#gold_image').html('<img src="data:image/png;base64,' + response.gold_image_base64 + '" />')
+          },
+          error: function (error) {
+            console.error('There was an error fetching the data:', error)
+          }
+        })
+      </script>
+    </div>
+</div>

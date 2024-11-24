@@ -1,9 +1,6 @@
-from django.contrib.auth import get_user_model
 from django.db import models
 from django_advanced.post_app.models import Post
-
-
-UserModel = get_user_model()
+from django_advanced.user_app.models import Profile
 
 
 class Like(models.Model):
@@ -13,6 +10,7 @@ class Like(models.Model):
     )
 
     user = models.ForeignKey(
-        to=UserModel,
+        to=Profile,
         on_delete=models.CASCADE,
+        related_name='likes'
     )

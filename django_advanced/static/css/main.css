@@ -45,9 +45,20 @@ h4 {
 }
 
 a {
-  text-decoration: none;
   color: #A30000;
   padding: 3px;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+small {
+  display: flex;
+  align-items: center;
+}
+hr {
+  border-top: 1px dotted #A30000;
 }
 
 button, .button {
@@ -56,10 +67,20 @@ button, .button {
   margin: 10px 20px;
   border: none;
   vertical-align: middle;
-  background: #a30000;
+  background: #337ab7;
   color: #ffffff;
   cursor: pointer;
   border-radius: 4px;
+}
+
+.danger {
+  color: #ffffff;
+  background: #a30000;
+}
+
+footer {
+  margin-top: 20px;
+  text-align: center;
 }
 
 form {}
@@ -68,7 +89,6 @@ form div {
   overflow: hidden;
   padding: 10px;
   display: flex;
-  border-bottom: 1px solid #c2c2c2;
 }
 
 form .helptext {
@@ -165,8 +185,8 @@ img {
 }
 
 .chart {
-  max-width: 500px;
-  max-height: 301px;
+  min-width: 500px;
+  min-height: 300px;
 }
 
 .profile-image {

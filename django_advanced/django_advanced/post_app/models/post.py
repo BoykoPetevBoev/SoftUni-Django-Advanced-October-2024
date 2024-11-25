@@ -9,7 +9,7 @@ class Post(models.Model):
     
     title = models.CharField(
         unique=True,
-        max_length=50,
+        max_length=200,
         validators=[
             MinLengthValidator(5),
         ]

@@ -6,13 +6,20 @@ from django.urls import reverse_lazy, reverse
 from django.views.generic import (CreateView, DeleteView, DetailView, ListView, UpdateView)
 from django_advanced.post_app.forms import (CreatePostForm, DeletePostForm, EditPostForm, SearchForm, CommentForm)
 from django_advanced.post_app.models import Post, Like, Comment
+from django_advanced.post_app.serializers import PostSerializer
 from django_advanced.user_app.mixins import AuthorMixin
 
+from rest_framework.viewsets import ModelViewSet
+from drf_spectacular.utils import extend_schema
 
-BREADCRUMBS = [
-    {'title': 'Home', 'url': reverse_lazy('home')},
-    {'title': 'Posts', 'url': reverse_lazy('posts')},
-]
+
+@extend_schema(
+    request=PostSerializer,
+    responses={201: PostSerializer, 400: PostSerializer},
+)
+class PostViewSet(ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
 
 
 class DetailsPostPage(DetailView):
@@ -27,9 +34,6 @@ class DetailsPostPage(DetailView):
         context['comments'] = self.object.comment_set.all()
         context['comment_form'] = CommentForm()
         context['search_form'] = SearchForm(self.request.GET)
-        context['breadcrumbs'] = BREADCRUMBS + [
-            {'title': post.pk, 'url': reverse('details-post', args=[post.pk])}
-        ]
         return context
 
 
@@ -42,7 +46,6 @@ class ListPostPage(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['search_form'] = SearchForm(self.request.GET)
-        context['breadcrumbs'] = BREADCRUMBS
         return context
 
     def get_queryset(self):
@@ -64,28 +67,12 @@ class CreatePostPage(LoginRequiredMixin, CreateView):
         post.author = self.request.user.profile
         return super().form_valid(form)
     
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['breadcrumbs'] = BREADCRUMBS + [
-            {'title': 'Create', 'url': reverse('create-post')}
-        ]
-        return context
-
 
 class EditPostPage(LoginRequiredMixin, AuthorMixin, UpdateView):
     model = Post
     form_class = EditPostForm
     template_name = 'post/edit-post.html'
     success_url = reverse_lazy('posts')
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        post = self.get_object()
-        context['breadcrumbs'] = BREADCRUMBS + [
-            {'title': post.pk, 'url': reverse('details-post', args=[post.pk])},
-            {'title': 'Edit', 'url': reverse('edit-post', args=[post.pk])}
-        ]
-        return context
 
 
 class DeletePostPage(LoginRequiredMixin, AuthorMixin, DeleteView):
@@ -94,15 +81,6 @@ class DeletePostPage(LoginRequiredMixin, AuthorMixin, DeleteView):
     template_name = 'post/delete-post.html'
     success_url = reverse_lazy('posts')
     
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        post = self.get_object()
-        context['breadcrumbs'] = BREADCRUMBS + [
-            {'title': post.pk, 'url': reverse('details-post', args=[post.pk])},
-            {'title': 'Delete', 'url': reverse('delete-post', args=[post.pk])}
-        ]
-        return context
-
     def get_initial(self):
         return self.object.__dict__
 

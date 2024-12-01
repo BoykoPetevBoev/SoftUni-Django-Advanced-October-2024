@@ -1,35 +1,35 @@
 <div class="menu">
   <ul class="menu-list">
-
-    
     <li class="menu-item">
       <a href="{% url 'home' %}" class="menu-link">Home</a>
     </li>
     <li class="menu-item">
       <a href="{% url 'posts' %}" class="menu-link">News</a>
     </li>
-    <li class="menu-item">
-      <a href="{% url 'create-post' %}" class="menu-link">Create Post</a>
-    </li>
-    
-    <li class="menu-item">
-      <strong>User</strong>
-    </li>
+    {% if user.is_authenticated %}
+      <li class="menu-item">
+        <a href="{% url 'create-post' %}" class="menu-link">Create Post</a>
+      </li>
+    {% endif %}
 
-    <li class="menu-item">
-      <a href="{% url 'home' %}" class="menu-link">Profile</a>
-    </li>
-    <li class="menu-item">
-      <a href="{% url 'home' %}" class="menu-link">Portfolio</a>
-    </li>
-    <li class="menu-item">
-      <a href="{% url 'home' %}" class="menu-link">Add Portfolio</a>
-    </li>
-    
+    {% if user.is_authenticated %}
+      <li class="menu-item">
+        <strong>User</strong>
+      </li>
+      <li class="menu-item">
+        <a href="{% url 'profile' user.pk %}">Profile</a>
+      </li>
+      <li class="menu-item">
+        <a href="{% url 'portfolio-list' %}" class="menu-link">Portfolio</a>
+      </li>
+      <li class="menu-item">
+        <a href="{% url 'create-portfolio' %}" class="menu-link">Add Portfolio</a>
+      </li>
+    {% endif %}
+
     <li class="menu-item">
       <strong>Markets</strong>
     </li>
-    
     <li class="menu-item">
       <a href="{% url 'forex_list' %}" class="menu-link">Forex</a>
     </li>
@@ -42,6 +42,5 @@
     <li class="menu-item">
       <a href="{% url 'forex_list' %}" class="menu-link">Cryptocurrency</a>
     </li>
-
   </ul>
 </div>

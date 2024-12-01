@@ -37,6 +37,7 @@ CREATED_APPS = [
     'django_advanced.chart_app',
     'django_advanced.forex_app',
     'django_advanced.commodities_app',
+    'django_advanced.portfolio_app',
 ]
 
 INSTALLED_APPS = [

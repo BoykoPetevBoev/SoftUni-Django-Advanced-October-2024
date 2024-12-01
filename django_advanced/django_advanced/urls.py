@@ -24,6 +24,7 @@ urlpatterns = [
     path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
     path('admin/', admin.site.urls),
+    path('portfolio/', include('django_advanced.portfolio_app.urls')),
     path('commodities/', include('django_advanced.commodities_app.urls')),
     path('forex/', include('django_advanced.forex_app.urls')),
     path('users/', include('django_advanced.user_app.urls')),

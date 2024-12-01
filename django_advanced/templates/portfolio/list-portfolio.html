@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <section class="section">
+    
+    {% if page_obj %}
+    <h2>My Portfolio</h2>
+    {% else %}
+    <h2>No portfolio yet.</h2>
+    {% endif %}
+    
+    <section class="dashboard">
+      {% for portfolio in page_obj  %}
+      <div class="content">
+        <div class="portfolio card flex">
+          <div>
+            <div>
+              <strong>{{ portfolio.title }}</strong>
+            </div>
+            <div>
+              <i>{{ portfolio.created_at }}</i>
+            </div>
+            <p>{{portfolio.description}}</p>
+            <a class="details-btn" href="{% url 'details-portfolio' portfolio.pk %}">See More</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </section>
+    {% include 'common/pagination.html' %}
+  </section>
+{% endblock %}

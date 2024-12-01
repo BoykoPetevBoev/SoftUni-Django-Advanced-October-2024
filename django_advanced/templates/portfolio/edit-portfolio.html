@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <section id="edit" class="section">
+    <h1>Edit Portfolio</h1>
+
+    <form class="form" method="post">
+      {% csrf_token %}
+      {{ form }}
+      <div class="toolbar">
+        <button type="submit">Edit</button>
+      </div>
+    </form>
+  </section>
+{% endblock %}

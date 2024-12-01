@@ -13,6 +13,23 @@ from django_advanced.portfolio_app.forms import (DeletePortfolioForm,
                                                  PortfolioForm)
 from django_advanced.portfolio_app.models import Portfolio
 from django_advanced.user_app.mixins import AuthorMixin
+from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
+from django_advanced.portfolio_app.serializers import PortfolioSerializer
+from drf_spectacular.utils import extend_schema
+
+
+@extend_schema(
+    request=PortfolioSerializer,
+    responses={201: PortfolioSerializer, 400: PortfolioSerializer},
+)
+class PortfolioViewSet(viewsets.ModelViewSet):
+    queryset = Portfolio.objects.all()
+    serializer_class = PortfolioSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Portfolio.objects.filter(profile=self.request.user.profile)
 
 
 class DetailsPortfolioPage(LoginRequiredMixin, DetailView):

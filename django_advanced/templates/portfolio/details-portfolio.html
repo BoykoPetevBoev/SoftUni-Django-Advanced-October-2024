@@ -4,57 +4,27 @@
 {% block content %}
   <section id="details" class="section">
     <h1>Portfolio Details</h1>
+    
     <div id="details-wrapper">
-      <div class="details flex">
-        <table>
-          <thead></thead>
-          <thead>
-            <tr>
-              <th>Market</th>
-              <th>USD</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Indices</td>
-              <td>{{ portfolio.indices }}</td>
-            </tr>
-            <tr>
-              <td>Stocks</td>
-              <td>{{ portfolio.stocks }}</td>
-            </tr>
-            <tr>
-              <td>Commodities</td>
-              <td>{{ portfolio.commodities }}</td>
-            </tr>
-            <tr>
-              <td>Cryptocurrency</td>
-              <td>{{ portfolio.cryptocurrency }}</td>
-            </tr>
-            <tr>
-              <td>Forex</td>
-              <td>{{ portfolio.forex }}</td>
-            </tr>
-            <tr>
-              <td>ETFs</td>
-              <td>{{ portfolio.etfs }}</td>
-            </tr>
-          </tbody>
-        </table>
-        <div>
-          <img src="data:image/png;base64,{{ chart }}" alt="Portfolio Chart" class="chart" />
-        </div>
-      </div>
       <div>
         <strong>{{ portfolio.title }}</strong>
       </div>
       <div>
         <i>{{ portfolio.created_at }}</i>
       </div>
-      <p>{{portfolio.description}}</p>
+      <p>{{ portfolio.description }}</p>
       <div class="toolbar">
         <a href="{% url 'edit-portfolio' portfolio.pk %}" class="button">Edit</a>
-        <a href="{% url 'delete-portfolio' portfolio.pk %}" class="button">Delete</a>
+        <a href="{% url 'delete-portfolio' portfolio.pk %}" class="button danger">Delete</a>
+      </div>
+    </div>
+
+    <div class="details flex-start">
+      <div>
+        {% include 'portfolio/details-daily-price-form.html' %}
+      </div>
+      <div>
+        <img src="data:image/png;base64,{{ chart }}" alt="Portfolio Chart" class="chart" />
       </div>
     </div>
   </section>

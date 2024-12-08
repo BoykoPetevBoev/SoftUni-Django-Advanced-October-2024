@@ -6,8 +6,10 @@
     <form method="post">
       {% csrf_token %}
       {{ form }}
-      <button type="submit">Save</button>
-      <a type="button" href="{% url 'profile' user.pk %}">Cancel</a>
+      <div class="toolbar">
+        <button type="submit">Save</button>
+        <a type="button" href="{% url 'profile' user.pk %}">Cancel</a>
+      </div>
     </form>
   </div>
 {% endblock %}

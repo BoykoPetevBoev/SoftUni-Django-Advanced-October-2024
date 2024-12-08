@@ -1,6 +1,15 @@
 from django import forms
-from django_advanced.portfolio_app.models import Portfolio
+from django_advanced.portfolio_app.models import Portfolio, DailyPrice 
 
+
+class DailyPriceForm(forms.ModelForm):
+    class Meta:
+        model = DailyPrice
+        fields = ['date', 'balance', 'comment']
+        widgets = {
+            'date': forms.DateInput(attrs={'type': 'date'}),
+            'balance': forms.NumberInput(attrs={'step': 'any'}),
+        }
 
 class PortfolioForm(forms.ModelForm):
     class Meta:

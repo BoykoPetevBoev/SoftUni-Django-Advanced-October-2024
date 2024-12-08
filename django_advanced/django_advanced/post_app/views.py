@@ -40,7 +40,7 @@ class DetailsPostPage(DetailView):
 class ListPostPage(ListView):
     model = Post
     template_name = 'post/list-post.html'
-    context_object_name = 'page_obj '
+    context_object_name = 'page_obj'
     paginate_by = 6
 
     def get_context_data(self, **kwargs):
@@ -60,7 +60,9 @@ class CreatePostPage(LoginRequiredMixin, CreateView):
     model = Post
     form_class = CreatePostForm
     template_name = 'post/create-post.html'
-    success_url = reverse_lazy('posts')
+    
+    def get_success_url(self):
+        return reverse('details-post', kwargs={'pk': self.object.pk})
     
     def form_valid(self, form):
         post = form.save(commit=False)
@@ -72,7 +74,9 @@ class EditPostPage(LoginRequiredMixin, AuthorMixin, UpdateView):
     model = Post
     form_class = EditPostForm
     template_name = 'post/edit-post.html'
-    success_url = reverse_lazy('posts')
+    
+    def get_success_url(self):
+        return reverse('details-post', kwargs={'pk': self.object.pk})
 
 
 class DeletePostPage(LoginRequiredMixin, AuthorMixin, DeleteView):

@@ -8,7 +8,8 @@
       {% csrf_token %}
       {{ form }}
       <div  class="toolbar">
-        <button type="submit">Delete</button>
+        <button type="submit" class="danger">Delete</button>
+        <a href="{% url 'details-post' post.pk %}" id="delete-btn">Cancel</a>
       </div>
     </form>
   </section>

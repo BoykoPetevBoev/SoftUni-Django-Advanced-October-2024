@@ -1,0 +1,35 @@
+<div>
+  <form class="form"
+    method="post"
+    action="{% url 'daily-price-save' portfolio.pk %}{% if daily_price_id %}?daily_price_id={{ daily_price_id }}{% endif %}">
+    {% csrf_token %}
+    {{ daily_price_form }}
+    <div id="toolbar" class="toolbar">
+      <button type="submit">Save</button>
+      <a href="{% url 'edit-portfolio' portfolio.pk %}">Clear</a>
+    </div>
+  </form>
+
+  {% if daily_prices %}
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>USD</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for daily_price in daily_prices %}
+          <tr>
+            <td>{{ daily_price.date }}</td>
+            <td>{{ daily_price.balance }}</td>
+            <td>
+              <a href="{% url 'edit-portfolio' portfolio.pk %}?daily_price_id={{ daily_price.pk }}">Edit</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+</div>

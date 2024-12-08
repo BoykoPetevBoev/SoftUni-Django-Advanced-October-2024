@@ -1,0 +1,50 @@
+<div>
+  <div id="toolbar" class="toolbar">
+    <form class="form"
+      method="post"
+      action="{% url 'daily-price-save' portfolio.pk %}{% if daily_price_id %}?daily_price_id={{ daily_price_id }}{% endif %}">
+      {% csrf_token %}
+      <div>
+        <label for="id_date">Date:</label>
+        {{ daily_price_form.date }}
+      </div>
+      <div>
+        <label for="id_balance">Balance:</label>
+        {{ daily_price_form.balance }}
+      </div>
+      <div>
+        <label for="id_comment">Comment:</label>
+        {{ daily_price_form.comment }}
+      </div>
+      <div class="flex">
+        <button type="submit">Save</button>
+        <a href="{% url 'details-portfolio' portfolio.pk %}">Clear</a>
+      </div>
+    </form>
+  </div>
+
+  {% if daily_prices %}
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>USD</th>
+          <th>Comment</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for daily_price in daily_prices %}
+          <tr>
+            <td>{{ daily_price.date }}</td>
+            <td>{{ daily_price.balance }}</td>
+            <td>{{ daily_price.comment }}</td>
+            <td>
+                <a href="{% url 'details-portfolio' portfolio.pk %}?daily_price_id={{ daily_price.pk }}">Edit</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+</div>

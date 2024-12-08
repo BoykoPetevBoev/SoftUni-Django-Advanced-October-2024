@@ -6,9 +6,9 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql
     environment:
-      POSTGRES_DB: regular_exam_db
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
 
   web:
     container_name: django_advanced_web
@@ -20,8 +20,49 @@ services:
       - ./django_advanced:/app
     ports:
       - "8000:8000"
+    environment:
+      SECRET_KEY: ${SECRET_KEY}
+      DEBUG: ${DEBUG}
+      DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS}
+      DJANGO_SETTINGS_MODULE: ${DJANGO_SETTINGS_MODULE}
+      DATABASE_NAME: ${POSTGRES_DB}
+      DATABASE_USER: ${POSTGRES_USER}
+      DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
+      DATABASE_HOST: db
+      EMAIL_PORT: ${EMAIL_PORT}
+      EMAIL_USE_TLS: ${EMAIL_USE_TLS}
+      EMAIL_USE_SSL: ${EMAIL_USE_SSL}
+      EMAIL_HOST_USER: ${EMAIL_HOST_USER}
+      DEFAULT_FROM_EMAIL: ${DEFAULT_FROM_EMAIL}
+      EMAIL_HOST_PASSWORD: ${EMAIL_HOST_PASSWORD}
+
+    stdin_open: true
+    tty: true
     depends_on:
       - db
+
+  celery:
+    container_name: django_advanced_celery
+    build:
+      context: ../
+      dockerfile: django_advanced/Dockerfile
+    command: celery --app=django_advanced worker -l INFO
+    user: "1000:1000"
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+
+  redis:
+    container_name: django_advanced_redis
+    image: redis:alpine
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 1s
+      timeout: 3s
+      retries: 30
+    ports:
+      - "6379:6379"
 
 volumes:
   postgres_data:

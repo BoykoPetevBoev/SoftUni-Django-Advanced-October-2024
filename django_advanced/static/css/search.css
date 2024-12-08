@@ -3,11 +3,11 @@
     margin: 15px 0;
     background: #f5f5f5;
     border: 1px solid #e3e3e3;
+    display: flex;
 }
 
 .toolbar form div {
     border-bottom: none;
-    padding: 0;
 }
 
 .toolbar .search-form, 

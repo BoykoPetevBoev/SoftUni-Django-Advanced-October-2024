@@ -2,31 +2,36 @@
 
 {% block content %}
   <section class="section">
-    
-    {% if page_obj %}
     <h2>Published Posts</h2>
-    {% else %}
-    <h2>No published posts yet.</h2>
+
+    {% if user.is_staff %}
+      <div class="flex-end">
+        <a class="button danger" href="{% url 'create-post' %}">Create Post</a>
+      </div>
     {% endif %}
-    
-    <div>
-      {% include 'post/search.html' %}
-    </div>
+
+    {% include 'post/search.html' %}
 
     <section class="dashboard">
-      {% for post in page_obj  %}
-      <div class="content">
-        <div class="post card flex">
-          <div class="flex">
-            <img src="{{ post.image_url }}" alt="{{ post.title }}" />
-          </div>
-          <div>
-            <h3 class="title">{{ post.title }}</h3>
-            <p>Author: {{ post.author }}</p>
-            <i>{{ post.updated_at}}</i>
-            <a class="details-btn" href="{% url 'details-post' post.pk %}">See More</a>
+      {% for post in page_obj %}
+        <div class="content">
+          <div class="post card flex">
+            <div class="flex">
+              <img src="{{ post.image_url }}" alt="{{ post.title }}" />
+            </div>
+            <div>
+              <h3 class="title">{{ post.title }}</h3>
+              <p>Author: {{ post.author.get_full_name }}</p>
+              <div>
+                <i>{{ post.updated_at }}</i>
+              </div>
+              <a class="details-btn" href="{% url 'details-post' post.pk %}">See More</a>
+            </div>
           </div>
         </div>
+      {% empty  %}
+      <div class="empty">
+        <h2>Empty news page.</h2>
       </div>
       {% endfor %}
     </section>

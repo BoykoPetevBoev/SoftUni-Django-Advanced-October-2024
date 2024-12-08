@@ -9,6 +9,7 @@
       {{ form }}
       <div class="toolbar">
         <button type="submit">Edit</button>
+        <a href="{% url 'details-post' post.pk %}" id="delete-btn">Cancel</a>
       </div>
     </form>
   </section>

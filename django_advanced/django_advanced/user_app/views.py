@@ -4,20 +4,29 @@ from django.views.generic import CreateView, DetailView, UpdateView
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
+from rest_framework.generics import CreateAPIView
 
 from django_advanced.user_app.forms import CustomUserCreateForm, ProfileEditForm
 from django_advanced.user_app.models.profile import Profile
 from django_advanced.user_app.mixins import ProfileOwnerMixin
-
+from django_advanced.user_app.serializers import RegisterSerializer
+from django.contrib.auth import login
 
 UserModel = get_user_model()
 
+class RegisterApiView(CreateAPIView):
+    queryset = UserModel.objects.all()
+    serializer_class = RegisterSerializer
 
 class UserRegisterView(CreateView):
     model = UserModel
     form_class = CustomUserCreateForm
     template_name = 'user/register.html'
     success_url = reverse_lazy('home')
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        login(self.request, self.object)
+        return response
 
 
 class UserLoginView(LoginView):

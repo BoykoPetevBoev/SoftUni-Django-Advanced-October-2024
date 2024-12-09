@@ -1,9 +1,19 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load markdown_extras %}
 
 {% block content %}
   <section id="details" class="section">
     <h1>Post Details</h1>
+    <hr />
+
+    <div class="toolbar">
+      {% if user.profile == author %}
+        <a href="{% url 'edit-post' post.pk %}" class="button" id="edit-btn">Edit</a>
+        <a href="{% url 'delete-post' post.pk %}" class="button danger" id="delete-btn">Delete</a>
+      {% endif %}
+    </div>
+
     <div id="details-wrapper">
       <img id="details-img" src="{{ post.image_url }}" alt="{{ post.title }}" />
       <h3>{{ post.title }}</h3>
@@ -15,16 +25,8 @@
       <p>Author: {{ author.get_full_name }}</p>
       <p>{{ post.updated_at }}</p>
       <div id="info-wrapper">
-        <div id="details-description">
-          <p>{{ post.content }}</p>
-        </div>
+        <div id="details-description">{{ post.content|markdown|safe }}</div>
 
-        <div id="action-buttons">
-          {% if user.profile == author %}
-            <a href="{% url 'edit-post' post.pk %}" id="edit-btn">Edit</a>
-            <a href="{% url 'delete-post' post.pk %}" id="delete-btn">Delete</a>
-          {% endif %}
-        </div>
 
         <div>
           {% include 'post/comment.html' %}

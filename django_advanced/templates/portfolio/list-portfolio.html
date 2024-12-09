@@ -2,31 +2,88 @@
 
 {% block content %}
   <section class="section">
-    
+    <h1>My Portfolio</h1>
+    <hr />
+    <p>Track your investments and monitor your financial growth. View your portfolio's performance, analyze asset allocation, and stay on top of your financial goals.</p>
+    <ul>
+      <li>Portfolio Performance</li>
+      <li>Investment Breakdown</li>
+      <li>Financial Goals Progress</li>
+    </ul>
+
+    <div class="toolbar">
+      <a class="button danger" href="{% url 'create-portfolio' %}">Add Asset</a>
+    </div>
+
     {% if page_obj %}
-    <h2>My Portfolio</h2>
-    {% else %}
-    <h2>No portfolio yet.</h2>
-    {% endif %}
-    
-    <section class="dashboard">
-      {% for portfolio in page_obj  %}
-      <div class="content">
-        <div class="portfolio card flex">
-          <div>
-            <div>
-              <strong>{{ portfolio.title }}</strong>
-            </div>
-            <div>
-              <i>{{ portfolio.created_at }}</i>
-            </div>
-            <p>{{portfolio.description}}</p>
-            <a class="details-btn" href="{% url 'details-portfolio' portfolio.pk %}">See More</a>
-          </div>
+      <div class="flex-start">
+        <table class="portfolio-table">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Asset Type</th>
+              <th>Balance (USD)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for portfolio in page_obj %}
+              <tr>
+                <td>{{ portfolio.title }}</td>
+                <td>{{ portfolio.assetType }}</td>
+                <td>
+                  {% if portfolio.get_latest_balance %}
+                    {{ portfolio.get_latest_balance.balance }}
+                  {% else %}
+                    N/A
+                  {% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <div>
+          <img src="data:image/png;base64,{{ chart }}" alt="Portfolio Chart" class="chart" />
         </div>
       </div>
+    {% endif %}
+
+    <section class="dashboard">
+      {% for portfolio in page_obj %}
+        <div class="content">
+          <div class="portfolio card flex">
+            <div>
+              <div>
+                <strong>{{ portfolio.title }}</strong>
+              </div>
+              <div>
+                Created At: <i>{{ portfolio.created_at }}</i>
+              </div>
+              <p>Type: {{ portfolio.assetType }}</p>
+              <a class="details-btn" href="{% url 'details-portfolio' portfolio.pk %}">See More</a>
+            </div>
+
+            {% if portfolio.get_latest_balance %}
+              <div>
+                <p>
+                  Balance: <strong>{{ portfolio.get_latest_balance.balance }} USD</strong>
+                </p>
+                <p>
+                  Latest Update: <i>{{ portfolio.get_latest_balance.date }}</i>
+                </p>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% empty %}
+        <div class="empty">
+          <div>
+            <h2>Your portfolio is empty.</h2>
+            <p>Click on the 'Add Asset' buton to create your portfolio</p>
+          </div>
+        </div>
       {% endfor %}
     </section>
+
     {% include 'common/pagination.html' %}
   </section>
 {% endblock %}

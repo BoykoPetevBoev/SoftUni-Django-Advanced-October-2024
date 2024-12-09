@@ -3,13 +3,19 @@
 {% block content %}
   <section id="edit" class="section">
     <h1>Edit Portfolio</h1>
-
+    <hr />
+    
     <form class="form" method="post">
       {% csrf_token %}
-      {{ form }}
+      {{ form }}      
       <div class="toolbar">
         <button type="submit">Edit</button>
+        <a href="{% url 'details-portfolio' portfolio.pk %}">Cancel</a>
       </div>
     </form>
+
+    <div>
+      {% include 'portfolio/edit-daily-price-form.html' %}
+    </div>
   </section>
 {% endblock %}

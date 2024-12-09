@@ -1,14 +1,12 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from django.shortcuts import redirect, render, resolve_url
+from django.shortcuts import redirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import (CreateView, DeleteView, DetailView, ListView, UpdateView)
 from django_advanced.post_app.forms import (CreatePostForm, DeletePostForm, EditPostForm, SearchForm, CommentForm)
-from django_advanced.post_app.models import Post, Like, Comment
+from django_advanced.post_app.models import Post, Like
 from django_advanced.post_app.serializers import PostSerializer
 from django_advanced.user_app.mixins import AuthorMixin
-
 from rest_framework.viewsets import ModelViewSet
 from drf_spectacular.utils import extend_schema
 
@@ -60,7 +58,9 @@ class CreatePostPage(LoginRequiredMixin, CreateView):
     model = Post
     form_class = CreatePostForm
     template_name = 'post/create-post.html'
-    success_url = reverse_lazy('posts')
+    
+    def get_success_url(self):
+        return reverse('details-post', kwargs={'pk': self.object.pk})
     
     def form_valid(self, form):
         post = form.save(commit=False)
@@ -72,7 +72,9 @@ class EditPostPage(LoginRequiredMixin, AuthorMixin, UpdateView):
     model = Post
     form_class = EditPostForm
     template_name = 'post/edit-post.html'
-    success_url = reverse_lazy('posts')
+    
+    def get_success_url(self):
+        return reverse('details-post', kwargs={'pk': self.object.pk})
 
 
 class DeletePostPage(LoginRequiredMixin, AuthorMixin, DeleteView):

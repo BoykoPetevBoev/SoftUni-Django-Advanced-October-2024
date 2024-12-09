@@ -3,12 +3,16 @@
 {% block content %}
   <section id="create" class="section">
     <h1>Create Portfolio</h1>
+    <hr />
 
     <form class="form" method="post">
       {% csrf_token %}
       {{ form }}
+      {{ daily_price_form }}
+
       <div class="toolbar">
         <button type="submit">Create</button>
+        <a href="{% url 'portfolio' %}">Cancel</a>
       </div>
     </form>
   </section>

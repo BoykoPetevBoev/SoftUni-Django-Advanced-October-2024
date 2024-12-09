@@ -3,12 +3,14 @@
 {% block content %}
   <section id="edit" class="section">
     <h1>Delete Post</h1>
+    <hr />
 
     <form class="form" method="post">
       {% csrf_token %}
       {{ form }}
       <div  class="toolbar">
-        <button type="submit">Delete</button>
+        <button type="submit" class="danger">Delete</button>
+        <a href="{% url 'details-post' post.pk %}" id="delete-btn">Cancel</a>
       </div>
     </form>
   </section>

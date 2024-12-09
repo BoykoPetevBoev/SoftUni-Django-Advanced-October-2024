@@ -1,14 +1,12 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from django.shortcuts import redirect, render, resolve_url
+from django.shortcuts import redirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import (CreateView, DeleteView, DetailView, ListView, UpdateView)
 from django_advanced.post_app.forms import (CreatePostForm, DeletePostForm, EditPostForm, SearchForm, CommentForm)
-from django_advanced.post_app.models import Post, Like, Comment
+from django_advanced.post_app.models import Post, Like
 from django_advanced.post_app.serializers import PostSerializer
 from django_advanced.user_app.mixins import AuthorMixin
-
 from rest_framework.viewsets import ModelViewSet
 from drf_spectacular.utils import extend_schema
 
@@ -40,7 +38,7 @@ class DetailsPostPage(DetailView):
 class ListPostPage(ListView):
     model = Post
     template_name = 'post/list-post.html'
-    context_object_name = 'page_obj'
+    context_object_name = 'page_obj '
     paginate_by = 6
 
     def get_context_data(self, **kwargs):

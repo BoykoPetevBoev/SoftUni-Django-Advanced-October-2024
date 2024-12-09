@@ -4,30 +4,105 @@
   <!-- Include jQuery library -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <div class="section">
-    <h1>Home Page</h1>
-
-    <!-- Embed the chart as an image -->
-    {% comment %} <img src="{% url 'gold' %}" alt="Matplotlib Chart" /> {% endcomment %}
-
-    <div class="card">
-      <strong>Gold Price Data</strong>
-
-      <div id="gold_image"></div>
-      <div id="gold_data_table"></div>
-
-      <script>
-        $.ajax({
-          url: '/commodities/',
-          method: 'GET',
-          success: function (response) {
-            $('#gold_data_table').html(response.gold_data_html)
-            $('#gold_image').html('<img class="chart" src="data:image/png;base64,' + response.gold_image_base64 + '" />')
-          },
-          error: function (error) {
-            console.error('There was an error fetching the data:', error)
-          }
-        })
-      </script>
+    <div class="hero-section">
+      <h1>Welcome to Your Financial Future</h1>
+      <p>Build your investment portfolio and stay informed with the latest financial education articles.</p>
     </div>
+
+    <section id="about">
+      <h2>About the App</h2>
+      <p>Our app provides a comprehensive platform to manage your investment portfolio while staying up-to-date with the latest financial education news. Whether you're new to investing or a seasoned pro, we provide the tools and resources you need to grow your wealth.</p>
+
+      <div class="features">
+        <div class="feature">
+          <h3>Create Your Portfolio</h3>
+          <p>Easily create and manage your personalized investment portfolio. Select from a variety of asset classes including stocks, bonds, ETFs, and real estate to build a diversified portfolio that aligns with your financial goals.</p>
+        </div>
+        <div class="feature">
+          <h3>Financial Education Hub</h3>
+          <p>Stay informed with the latest financial news, articles, and learning resources. Our Financial Education Hub offers up-to-date insights on investment strategies, market trends, and personal finance tips.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="portfolio">
+      <h2>Your Portfolio</h2>
+      <p>Your portfolio is a collection of your investments that are managed and optimized based on your risk tolerance, goals, and investment preferences. Track performance, adjust allocations, and analyze potential opportunities with ease.</p>
+
+      <div class="portfolio-steps">
+        <h3>Steps to Build Your Portfolio:</h3>
+        <ol>
+          <li>
+            <strong>Sign Up</strong> - Create an account to start managing your financial assets.
+          </li>
+          <li>
+            <strong>Choose Your Assets</strong> - Select stocks, bonds, ETFs, or real estate to diversify your portfolio.
+          </li>
+          <li>
+            <strong>Track Your Growth</strong> - Monitor your portfolio’s performance with real-time analytics and progress reports.
+          </li>
+          <li>
+            <strong>Rebalance</strong> - Adjust your portfolio’s allocations as your financial situation changes.
+          </li>
+        </ol>
+      </div>
+
+      <h3>Portfolio Features</h3>
+      <ul>
+        <li>
+          <strong>Real-time Performance Tracking:</strong> Monitor how your portfolio is performing with up-to-the-minute data on stock prices, asset values, and market conditions.
+        </li>
+        <li>
+          <strong>Investment Suggestions:</strong> Get recommendations based on your financial goals and risk profile, including diversification tips to minimize risk.
+        </li>
+        <li>
+          <strong>Customizable Risk Settings:</strong> Set your risk tolerance levels (low, medium, high) to tailor the portfolio to your needs.
+        </li>
+      </ul>
+    </section>
+
+    <section id="financial-education">
+      <h2>Stay Informed with Financial News</h2>
+      <p>Understanding the market and financial trends is essential for successful investing. Our app aggregates the latest news and expert opinions on investing, stock market analysis, and personal finance, helping you make informed decisions.</p>
+
+      <div class="education-categories">
+        <h3>Explore Financial Topics</h3>
+        <div class="category">
+          <h4>Investment Strategies</h4>
+          <p>Learn about long-term vs. short-term investment strategies, diversification techniques, and how to create a balanced investment plan.</p>
+        </div>
+        <div class="category">
+          <h4>Stock Market Insights</h4>
+          <p>Get expert insights into the stock market, including trends, analysis, and tips for trading effectively.</p>
+        </div>
+        <div class="category">
+          <h4>Personal Finance Tips</h4>
+          <p>Master the basics of budgeting, saving, debt management, and financial planning to improve your financial health.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="benefits">
+      <h2>Why Choose Our App?</h2>
+      <div class="benefits">
+        <div class="benefit">
+          <h3>Comprehensive Portfolio Management</h3>
+          <p>Manage all your investments in one place with features to track performance, adjust allocations, and receive recommendations tailored to your financial goals.</p>
+        </div>
+        <div class="benefit">
+          <h3>Up-to-Date Financial News</h3>
+          <p>Stay ahead of market trends with curated news and articles, offering valuable insights on how to approach your investments in different market conditions.</p>
+        </div>
+        <div class="benefit">
+          <h3>Easy-to-Use Interface</h3>
+          <p>The app is designed for both beginners and experienced investors, providing an intuitive and user-friendly interface to simplify portfolio management and learning.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="cta">
+      <h2>Ready to Start Your Financial Journey?</h2>
+      <p>Join thousands of users who are building their investment portfolios and learning about finance with our easy-to-use app. Get started today!</p>
+    </section>
   </div>
 {% endblock %}

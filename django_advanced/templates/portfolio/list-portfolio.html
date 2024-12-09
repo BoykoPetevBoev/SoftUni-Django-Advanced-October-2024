@@ -2,18 +2,49 @@
 
 {% block content %}
   <section class="section">
-      <h1>My Portfolio</h1>
-      <hr>
+    <h1>My Portfolio</h1>
+    <hr />
+    <p>Track your investments and monitor your financial growth. View your portfolio's performance, analyze asset allocation, and stay on top of your financial goals.</p>
+    <ul>
+      <li>Portfolio Performance</li>
+      <li>Investment Breakdown</li>
+      <li>Financial Goals Progress</li>
+    </ul>
 
-
-    <div class="flex-end">
+    <div class="toolbar">
       <a class="button danger" href="{% url 'create-portfolio' %}">Add Asset</a>
     </div>
 
     {% if page_obj %}
-    <div>
-      <img src="data:image/png;base64,{{ chart }}" alt="Portfolio Chart" class="chart" />
-    </div>
+      <div class="flex-start">
+        <table class="portfolio-table">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Asset Type</th>
+              <th>Balance (USD)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for portfolio in page_obj %}
+              <tr>
+                <td>{{ portfolio.title }}</td>
+                <td>{{ portfolio.assetType }}</td>
+                <td>
+                  {% if portfolio.get_latest_balance %}
+                    {{ portfolio.get_latest_balance.balance }}
+                  {% else %}
+                    N/A
+                  {% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <div>
+          <img src="data:image/png;base64,{{ chart }}" alt="Portfolio Chart" class="chart" />
+        </div>
+      </div>
     {% endif %}
 
     <section class="dashboard">
@@ -43,7 +74,7 @@
             {% endif %}
           </div>
         </div>
-        {% empty  %}
+      {% empty %}
         <div class="empty">
           <div>
             <h2>Your portfolio is empty.</h2>
@@ -52,6 +83,7 @@
         </div>
       {% endfor %}
     </section>
+
     {% include 'common/pagination.html' %}
   </section>
 {% endblock %}

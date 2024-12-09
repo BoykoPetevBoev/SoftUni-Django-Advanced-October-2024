@@ -23,13 +23,12 @@ from django.forms import modelformset_factory, inlineformset_factory
 from .models import Portfolio, DailyPrice
 from .forms import PortfolioForm, DailyPriceForm
 
-# Create an inline formset for DailyPrice related to a Portfolio
 DailyPriceFormSet = inlineformset_factory(
     Portfolio,
     DailyPrice,
     form=DailyPriceForm,
-    extra=2,  # Number of empty forms initially shown
-    can_delete=False,  # Allow deletion of prices
+    extra=2,
+    can_delete=False,
 )
 
         # dates = ['Indices', 'Stocks', 'Commodities', 'Cryptocurrency', 'Forex', 'ETFs']
@@ -62,7 +61,7 @@ class DetailsPortfolioPage(LoginRequiredMixin, DetailView):
     def get_object(self, queryset=None):
         portfolio = super().get_object(queryset)
         if portfolio.profile != self.request.user.profile:
-            raise Http404("You do not have permission to edit this portfolio.")
+            raise Http404("You do not have permission view this portfolio.")
         return portfolio
         
     def get_context_data(self, **kwargs):
@@ -99,7 +98,7 @@ class DetailsPortfolioPage(LoginRequiredMixin, DetailView):
 class ListPortfolioPage(LoginRequiredMixin, ListView):
     model = Portfolio
     template_name = 'portfolio/list-portfolio.html'
-    context_object_name = 'page_obj'
+    context_object_name = 'page_obj '
     paginate_by = 6
     
     def get_queryset(self):
@@ -135,12 +134,6 @@ class CreatePortfolioPage(LoginRequiredMixin, CreateView):
     template_name = 'portfolio/create-portfolio.html'
     success_url = reverse_lazy('portfolio')
     
-    def get_object(self, queryset=None):
-        portfolio = super().get_object(queryset)
-        if portfolio.profile != self.request.user.profile:
-            raise Http404("You do not have permission to edit this portfolio.")
-        return portfolio
-    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['daily_price_form'] = DailyPriceForm()
@@ -167,6 +160,12 @@ class EditPortfolioPage(LoginRequiredMixin, UpdateView):
     form_class = PortfolioForm
     template_name = 'portfolio/edit-portfolio.html'
     success_url = reverse_lazy('portfolio')
+
+    def get_object(self, queryset=None):
+        portfolio = super().get_object(queryset)
+        if portfolio.profile != self.request.user.profile:
+            raise Http404("You do not have permission to edit this portfolio.")
+        return portfolio
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -196,6 +195,12 @@ class DeletePortfolioPage(LoginRequiredMixin, AuthorMixin, DeleteView):
     form_class = DeletePortfolioForm
     template_name = 'portfolio/delete-portfolio.html'
     success_url = reverse_lazy('portfolio')
+
+    def get_object(self, queryset=None):
+        portfolio = super().get_object(queryset)
+        if portfolio.profile != self.request.user.profile:
+            raise Http404("You do not have permission to delete this portfolio.")
+        return portfolio
 
     def get_initial(self):
         return self.object.__dict__

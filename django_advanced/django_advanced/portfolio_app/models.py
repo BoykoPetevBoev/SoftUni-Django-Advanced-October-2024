@@ -62,7 +62,7 @@ class DailyPrice(models.Model):
     comment = models.CharField(max_length=100, default='', blank=True)
     portfolio = models.ForeignKey(
        Portfolio, 
-        related_name='daily_prices',  # This is the reverse relation from Portfolio to DailyPrice
+        related_name='daily_prices',
         on_delete=models.CASCADE
     )
     def __str__(self):
@@ -70,35 +70,3 @@ class DailyPrice(models.Model):
     
     class Meta:
         ordering = ['-date']
-
-
-    # indices = models.DecimalField(
-    #     max_digits=10,
-    #     decimal_places=2, 
-    #     default=0
-    # )
-    # stocks = models.DecimalField(
-    #     max_digits=10,
-    #     decimal_places=2, 
-    #     default=0
-    # )
-    # commodities = models.DecimalField(
-    #     max_digits=10,
-    #     decimal_places=2, 
-    #     default=0
-    # )
-    # cryptocurrency = models.DecimalField(
-    #     max_digits=10,
-    #     decimal_places=2, 
-    #     default=0
-    # )
-    # forex = models.DecimalField(
-    #     max_digits=10,
-    #     decimal_places=2, 
-    #     default=0
-    # )
-    # etfs = models.DecimalField(
-    #     max_digits=10,
-    #     decimal_places=2,
-    #     default=0
-    # )

@@ -11,6 +11,25 @@ jobs:
     runs-on: ubuntu-latest
 
     environment: dev
+    env:
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      DEBUG: ${{ secrets.DEBUG }}
+      DJANGO_ALLOWED_HOSTS: ${{ secrets.DJANGO_ALLOWED_HOSTS }}
+      DJANGO_SETTINGS_MODULE: ${{ secrets.DJANGO_SETTINGS_MODULE }}
+      DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
+      DATABASE_USER: ${{ secrets.DATABASE_USER }}
+      DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+      DATABASE_PORT: ${{ secrets.DATABASE_PORT }}
+      DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
+      POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+      POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      EMAIL_PORT: ${{ secrets.EMAIL_PORT }}
+      EMAIL_USE_TLS: ${{ secrets.EMAIL_USE_TLS }}
+      EMAIL_USE_SSL: ${{ secrets.EMAIL_USE_SSL }}
+      EMAIL_HOST_USER: ${{ secrets.EMAIL_HOST_USER }}
+      DEFAULT_FROM_EMAIL: ${{ secrets.DEFAULT_FROM_EMAIL }}
+      EMAIL_HOST_PASSWORD: ${{ secrets.EMAIL_HOST_PASSWORD }}
 
     steps:
       - name: Checkout code

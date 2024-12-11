@@ -9,7 +9,7 @@ from django_advanced.post_app.serializers import PostSerializer
 from django_advanced.user_app.mixins import AuthorMixin
 from rest_framework.viewsets import ModelViewSet
 from drf_spectacular.utils import extend_schema
-
+from django.contrib.auth.mixins import UserPassesTestMixin
 
 @extend_schema(
     request=PostSerializer,
@@ -54,10 +54,13 @@ class ListPostPage(ListView):
         return queryset
 
 
-class CreatePostPage(LoginRequiredMixin, CreateView):
+class CreatePostPage(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Post
     form_class = CreatePostForm
     template_name = 'post/create-post.html'
+
+    def test_func(self):
+        return self.request.user.is_staff
     
     def get_success_url(self):
         return reverse('details-post', kwargs={'pk': self.object.pk})
